@@ -11,6 +11,9 @@ char *send_string = "Sending this string as a file to console.\n"
                     "file transfer between pc-emul, simulation and fpga without"
                     " adding extra targets for file generation.\n";
 
+int fib[] = {0,1}; 
+int aux = 0;
+
 // copy src to dst
 // return number of copied chars (excluding '\0')
 int string_copy(char *dst, char *src) {
@@ -47,9 +50,23 @@ int main()
   //test puts
   uart_puts("\n\n\nHello world!\n\n\n");
 
-  //test printf with floats 
-  printf("Value of Pi = %f\n\n", 3.1415);
-
+  //print fibonacci
+  printf("Fibonacci Sequence (30 first values)\n--START--\n%d\t%d\t ",fib[0],fib[1]);
+  
+  for(int n = 3; n<31; n++){
+    aux = fib[1];
+    fib[1] = fib[1]+fib[0];
+    fib[0] = aux;
+    aux = 0;
+    
+    if((n-1)%10 == 0) //new line every 10 values
+      printf("\n");   
+    printf("%d\t", fib[1]); 
+  }
+  
+  printf("\n--END--\n\n");
+    
+  /**
   //test file send
   char *sendfile = malloc(1000);
   int send_file_size = 0;
@@ -70,6 +87,6 @@ int main()
 
   free(sendfile);
   free(recvfile);
-
+  **/
   uart_finish();
 }
