@@ -14,6 +14,7 @@ char *send_string = "Sending this string as a file to console.\n"
 
 int fib[] = {0,1}; 
 int aux = 0;
+int l = 30;
 
 // copy src to dst
 // return number of copied chars (excluding '\0')
@@ -51,13 +52,15 @@ int main()
   //init gpio
   gpio_init(GPIO_BASE);
   
-  //test set
-  gpio_set(2);
+  //test puts
+  uart_puts("\n\n\nHello world!\n\n\n");
+
+  l = gpio_get();
 
   //print fibonacci
-  printf("Fibonacci Sequence (30 first values)\n--START--\n%d\t%d\t",fib[0],fib[1]);
+  printf("Fibonacci Sequence (%d first values)\n--START--\n%d\t%d\t", l,fib[0],fib[1]);
   
-  for(int n = 3; n<31; n++){
+  for(int n = 3; n<l+1; n++){
     aux = fib[1];
     fib[1] = fib[1]+fib[0];
     fib[0] = aux;
@@ -67,7 +70,7 @@ int main()
       printf("\n");   
     printf("%d\t", fib[1]); 
   }
-  
+  gpio_set(fib[1]);
   printf("\n--END--\n\n");
     
   /**
