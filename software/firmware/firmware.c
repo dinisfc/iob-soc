@@ -1,6 +1,7 @@
 #include "system.h"
 #include "periphs.h"
 #include "iob-uart.h"
+#include "iob-gpio.h"
 #include "printf.h"
 
 char *send_string = "Sending this string as a file to console.\n"
@@ -47,11 +48,14 @@ int main()
   //init uart
   uart_init(UART_BASE,FREQ/BAUD);
 
-  //test puts
-  uart_puts("\n\n\nHello world!\n\n\n");
+  //init gpio
+  gpio_init(GPIO_BASE);
+  
+  //test set
+  gpio_set(2);
 
   //print fibonacci
-  printf("Fibonacci Sequence (30 first values)\n--START--\n%d\t%d\t ",fib[0],fib[1]);
+  printf("Fibonacci Sequence (30 first values)\n--START--\n%d\t%d\t",fib[0],fib[1]);
   
   for(int n = 3; n<31; n++){
     aux = fib[1];
