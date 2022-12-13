@@ -19,3 +19,4 @@
 [submodule "submodules/GPIO"]
 	path = submodules/GPIO
 	url = git@github.com:dinisfc/iob-gpio.git
+	branch = main
